@@ -3,12 +3,24 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrainCircuit, Sparkles } from "lucide-react";
+import { signOutAction } from "@/features/auth/actions";
 import { primaryNavigation, secondaryNavigation } from "@/config/navigation";
 import { NavigationLink } from "./navigation-link";
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+type AppShellProps = {
+  children: React.ReactNode;
+  profileName?: string;
+  profileEmail?: string | null;
+  authEnabled?: boolean;
+};
+
+export function AppShell({ children, profileName = "Jamie Davis", profileEmail, authEnabled = false }: AppShellProps) {
   const pathname = usePathname();
   const focusMode = pathname.startsWith("/study/");
+  const authPage = pathname === "/login" || pathname === "/register";
+  const initials = profileName.split(/\s+/).slice(0, 2).map((part) => part[0]).join("").toUpperCase();
+
+  if (authPage) return <div className="auth-page-shell">{children}</div>;
 
   return (
     <div className={`app-shell${focusMode ? " app-shell-focus" : ""}`}>
@@ -26,8 +38,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="sidebar-bottom">
           {secondaryNavigation.map((item) => <NavigationLink key={item.href} {...item} />)}
           <div className="profile-card">
-            <span className="avatar">JD</span>
-            <span><strong>Jamie Davis</strong><small>College student</small></span>
+            <span className="avatar">{initials}</span>
+            <span><strong>{profileName}</strong><small>{profileEmail ?? "College student"}</small></span>
+            {authEnabled ? <form action={signOutAction}><button className="signout-button" type="submit">Sign out</button></form> : null}
           </div>
         </div>
       </aside>

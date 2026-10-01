@@ -1,2 +1,2 @@
 export * from "./contracts";
-export { getConfiguredProviderId, getStudyAIProvider } from "./provider";
+export { getConfiguredProviderId, getStudyAIProvider, isStudyAIConfigured } from "./provider";

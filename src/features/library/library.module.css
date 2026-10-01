@@ -1,0 +1,27 @@
+.demoNotice {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 15px 17px;
+  border: 1px solid #cfe4fa;
+  border-radius: var(--radius-md);
+  color: var(--text);
+  background: var(--primary-soft);
+}
+
+.demoNotice > svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--primary-dark);
+}
+
+.demoNotice strong {
+  font-size: 0.82rem;
+}
+
+.demoNotice p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
